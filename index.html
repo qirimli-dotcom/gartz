@@ -49,11 +49,17 @@
 
   @media(max-width:560px){nav{display:none}}
   /* --- full-page slides --- */
-  html{scroll-snap-type:none}
+  html{scroll-snap-type:y proximity}
   .hero{scroll-snap-align:start;scroll-snap-stop:always}
   .about-slide{min-height:100vh;display:flex;align-items:center;background:#fff;color:var(--ink);scroll-snap-align:start;scroll-snap-stop:always;padding:90px 0}
   .about-in{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;width:100%}
   .about-txt .eyebrow{color:var(--accent);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+  .about-deco{display:flex;gap:9px;margin-bottom:22px}
+  .about-deco .sq{width:18px;height:18px;border-radius:4px}
+  .about-deco .sq1{background:var(--accent)}
+  .about-deco .sq2{background:var(--yellow);border:2px solid var(--accent)}
+  .about-txt .eyebrow{position:relative;display:inline-block;padding-bottom:9px}
+  .about-txt .eyebrow::after{content:"";position:absolute;left:0;bottom:0;width:38px;height:2px;background:var(--accent)}
   .atitle{font-family:'Montserrat',Arial,sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(28px,3.6vw,46px);line-height:1.06;letter-spacing:-.01em}
   .atext{margin-top:20px;color:#5a544c;font-size:16px;max-width:52ch;line-height:1.7}
   .astats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -94,6 +100,7 @@
 <section class="about-slide" id="about">
   <div class="wrap about-in">
     <div class="about-txt reveal">
+      <div class="about-deco"><span class="sq sq1"></span><span class="sq sq2"></span></div>
       <div class="eyebrow">О нас</div>
       <h2 class="atitle">Гарант качества<br>и вашего благополучия</h2>
       <p class="atext">Мы на рынке уже более 7 лет и остаёмся одной из ведущих компаний в своём сегменте. За эти годы мы выполнили тысячи заказов и заручились доверием клиентов, многие из которых стали постоянными.</p>
@@ -117,47 +124,6 @@
     e.target.querySelectorAll('.reveal').forEach(function(r){r.classList.add('in')});
     e.target.querySelectorAll('[data-to]').forEach(up); io.unobserve(e.target)}})},{threshold:.35});
   var ab=document.getElementById('about'); if(ab)io.observe(ab);
-})();
-</script>
-<script>
-(function(){
-  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-  var target=window.pageYOffset,current=target,EASE=0.06,running=false,settleT=null;
-  function maxY(){return document.documentElement.scrollHeight-window.innerHeight}
-  function secs(){return [].slice.call(document.querySelectorAll('.hero,.about-slide'))}
-  function loop(){
-    current+=(target-current)*EASE;
-    if(Math.abs(target-current)<0.3){current=target;window.scrollTo(0,current);running=false;return}
-    window.scrollTo(0,current);requestAnimationFrame(loop);
-  }
-  function start(){if(!running){running=true;requestAnimationFrame(loop)}}
-  /* долистать к тому экрану, что виден процентно больше всего */
-  function snap(){
-    var y=window.pageYOffset,vh=window.innerHeight,best=null,br=-1;
-    secs().forEach(function(el){
-      var t=el.offsetTop,b=t+el.offsetHeight;
-      var vis=Math.max(0,Math.min(b,y+vh)-Math.max(t,y))/vh;
-      if(vis>br){br=vis;best=el}
-    });
-    if(best){target=Math.max(0,Math.min(maxY(),best.offsetTop));start()}
-  }
-  function scheduleSnap(){clearTimeout(settleT);settleT=setTimeout(snap,110)}
-  window.addEventListener('wheel',function(e){
-    e.preventDefault();
-    var d=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?window.innerHeight:1);
-    target=Math.max(0,Math.min(maxY(),target+d));
-    start();scheduleSnap();
-  },{passive:false});
-  window.addEventListener('keydown',function(e){
-    if(e.key==='ArrowDown'||e.key==='PageDown'||e.key===' '){e.preventDefault();target=Math.min(maxY(),target+window.innerHeight*0.5);start();scheduleSnap();}
-    else if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();target=Math.max(0,target-window.innerHeight*0.5);start();scheduleSnap();}
-  });
-  var ty=null;
-  window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY},{passive:true});
-  window.addEventListener('touchmove',function(e){if(ty==null)return;var cy=e.touches[0].clientY;target=Math.max(0,Math.min(maxY(),target+(ty-cy)));ty=cy;start();scheduleSnap();},{passive:true});
-  window.addEventListener('touchend',function(){ty=null;scheduleSnap()});
-  window.addEventListener('scroll',function(){if(!running){current=target=window.pageYOffset}});
-  window.addEventListener('resize',function(){target=Math.max(0,Math.min(maxY(),target))});
 })();
 </script>
 </body>
