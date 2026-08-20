@@ -26,7 +26,12 @@
   .wrap{max-width:1280px;margin:0 auto;padding:0 40px}
 
   /* header over hero */
-  header{position:absolute;top:0;left:0;right:0;z-index:20}
+  header{position:fixed;top:0;left:0;right:0;z-index:40;transition:background .3s ease,box-shadow .3s ease}
+  header.solid{background:#fff;box-shadow:0 2px 18px rgba(0,0,0,.08)}
+  header.solid .bar{height:70px}
+  header.solid nav a{color:#222;opacity:1}
+  header.solid nav a:hover{color:var(--accent)}
+  header.solid .logo img{filter:invert(1)}
   .bar{display:flex;align-items:center;gap:26px;height:92px}
   .logo{font-family:'Montserrat',Arial,sans-serif;font-weight:800;font-size:26px;letter-spacing:.03em;text-transform:uppercase;color:#fff}
   nav{display:flex;gap:26px;margin-left:auto}
@@ -117,6 +122,15 @@
     e.target.querySelectorAll('.reveal').forEach(function(r){r.classList.add('in')});
     e.target.querySelectorAll('[data-to]').forEach(up); io.unobserve(e.target)}})},{threshold:.35});
   var ab=document.getElementById('about'); if(ab)io.observe(ab);
+})();
+</script>
+<script>
+(function(){
+  var hd=document.querySelector('header');
+  function upd(){ if(window.pageYOffset>window.innerHeight*0.6){hd.classList.add('solid');}else{hd.classList.remove('solid');} }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd,{passive:true});
+  upd();
 })();
 </script>
 </body>
