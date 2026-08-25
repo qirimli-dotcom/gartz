@@ -73,6 +73,17 @@
   .picon{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:#fff;color:#7b828e;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.16s;padding:0;flex:none}
   .picon:hover{border-color:var(--accent);color:var(--accent);background:#fff}
   .picon svg{width:13px;height:13px}
+  /* ---- mobile ---- */
+  .fbtn-m{display:none}
+  @media(max-width:860px){
+    nav{display:none}
+    .fbtn-m{display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:11px 16px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;color:var(--ink)}
+    .filters{display:none}
+    .filters.open{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:20px}
+    .layout{display:block}
+    .titleband{padding:26px 0 22px}
+  }
+  @media(max-width:520px){.pgrid{grid-template-columns:repeat(2,1fr);gap:12px}}
 </style>
 </head>
 <body>
@@ -96,6 +107,7 @@
   </div>
 </div>
 
+<div class="wrap"><button class="fbtn-m" id="fbtnM">⚙ Фильтры</button></div>
 <div class="wrap layout">
   <aside class="filters" id="filters"></aside>
   <main class="pgrid" id="pgrid"></main>
