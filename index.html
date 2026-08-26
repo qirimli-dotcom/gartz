@@ -77,7 +77,9 @@
     .catalog .cat-arrow svg{width:18px;height:18px}
     .catalog{padding:44px 0}
     .catalog .chead{margin-bottom:18px}
-    .hero{min-height:100vh}
+    .hero{min-height:100vh;background:#23271f}
+    .hero::before{background-size:contain !important;background-position:center !important}
+    .hero::after{background:rgba(20,22,21,.32)}
   }
 
   /* --- full-page slides --- */
@@ -228,11 +230,19 @@
 </style>
 <script>
 if('scrollRestoration' in history){history.scrollRestoration='manual';}
-function __toTop(){window.scrollTo(0,0);}
-__toTop();
-document.addEventListener('DOMContentLoaded',__toTop);
-window.addEventListener('load',function(){__toTop();requestAnimationFrame(__toTop);setTimeout(__toTop,60);setTimeout(__toTop,220);});
-window.addEventListener('pageshow',function(e){__toTop();if(e.persisted)setTimeout(__toTop,60);});
+(function(){
+  var de=document.documentElement, locked=true;
+  de.style.scrollSnapType='none';
+  function pin(){ if(!locked) return; window.scrollTo(0,0); if(document.body){document.body.scrollTop=0;} de.scrollTop=0; requestAnimationFrame(pin); }
+  requestAnimationFrame(pin);
+  function unlock(){ if(!locked) return; locked=false; de.style.scrollSnapType='';
+    window.removeEventListener('touchstart',unlock); window.removeEventListener('touchmove',unlock);
+    window.removeEventListener('wheel',unlock); window.removeEventListener('keydown',unlock); }
+  window.addEventListener('touchstart',unlock,{passive:true});
+  window.addEventListener('touchmove',unlock,{passive:true});
+  window.addEventListener('wheel',unlock,{passive:true});
+  window.addEventListener('keydown',unlock);
+})();
 </script>
 </head>
 <body>
