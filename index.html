@@ -235,8 +235,9 @@ if('scrollRestoration' in history){history.scrollRestoration='manual';}
   function pin(){ if(!locked) return; window.scrollTo(0,0); if(document.body){document.body.scrollTop=0;} de.scrollTop=0; requestAnimationFrame(pin); }
   requestAnimationFrame(pin);
   function unlock(){ if(!locked) return; locked=false; de.style.scrollSnapType='';
-    window.removeEventListener('touchstart',unlock); window.removeEventListener('touchmove',unlock);
+    window.removeEventListener('pointerdown',unlock); window.removeEventListener('touchstart',unlock); window.removeEventListener('touchmove',unlock);
     window.removeEventListener('wheel',unlock); window.removeEventListener('keydown',unlock); }
+  window.addEventListener('pointerdown',unlock,{passive:true});
   window.addEventListener('touchstart',unlock,{passive:true});
   window.addEventListener('touchmove',unlock,{passive:true});
   window.addEventListener('wheel',unlock,{passive:true});
