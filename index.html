@@ -66,15 +66,15 @@
     nav a:last-child{border-bottom:none}
     .burger{display:flex}
     .catalog{min-height:auto;padding:44px 0}
-    .wrap{padding:0 12px}
-    .catalog .cat-grid{grid-template-columns:repeat(3,1fr);gap:7px}
-    .cat-card{min-width:0;min-height:106px;padding:8px 7px 6px;border-radius:9px}
-    .cat-top{gap:3px}
-    .cat-name{font-size:10px;line-height:1.15;min-width:0;overflow-wrap:anywhere}
+    .wrap{padding:0 14px}
+    .catalog .cat-grid{grid-template-columns:1fr;gap:10px}
+    .cat-card{min-width:0;min-height:auto;flex-direction:row;align-items:center;gap:14px;padding:14px 16px;border-radius:11px}
+    .cat-img{order:-1;flex:none;padding:0;background:transparent}
+    .cat-img svg{width:30px;max-height:30px}
+    .cat-top{flex:1;gap:8px;align-items:center}
+    .cat-name{font-size:14px;line-height:1.25;min-width:0;overflow-wrap:anywhere;font-weight:600}
     .cat-arrow{flex:none}
-    .cat-arrow svg{width:13px;height:13px}
-    .cat-img{padding:5px 2px 2px}
-    .cat-img svg{width:50%;max-height:46px}
+    .cat-arrow svg{width:18px;height:18px}
     .catalog{padding:44px 0}
     .catalog .chead{margin-bottom:18px}
     .hero{min-height:100vh}
@@ -226,7 +226,14 @@
   .cdiv2{width:1px;background:rgba(255,255,255,.15);align-self:center;min-height:150px}
   @media(max-width:760px){.crow{grid-template-columns:1fr;gap:38px}.cdiv2{display:none}.ctitle2{margin-bottom:44px}}
 </style>
-<script>if('scrollRestoration' in history){history.scrollRestoration='manual';}window.addEventListener('load',function(){window.scrollTo(0,0);});</script>
+<script>
+if('scrollRestoration' in history){history.scrollRestoration='manual';}
+function __toTop(){window.scrollTo(0,0);}
+__toTop();
+document.addEventListener('DOMContentLoaded',__toTop);
+window.addEventListener('load',function(){__toTop();requestAnimationFrame(__toTop);setTimeout(__toTop,60);setTimeout(__toTop,220);});
+window.addEventListener('pageshow',function(e){__toTop();if(e.persisted)setTimeout(__toTop,60);});
+</script>
 </head>
 <body>
 
